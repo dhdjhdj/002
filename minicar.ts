@@ -33,8 +33,11 @@ enum LED_color {
     oxbloodred = 5,
     //% block="white"
     white = 6,
-    //% block="yellow"
+    //% block="Turn off LED"
     yellow = 7,
+    //% block=""
+    black = 8,
+    
 }
 
 //% color="#AA278D"
@@ -75,6 +78,8 @@ namespace Motor {
                     break;
                 case 7: { motor_i2cWrite(0x0c, 0); motor_i2cWrite(0x0d, 0); motor_i2cWrite(0x0e, 1); };
                     break;
+                case 8: { motor_i2cWrite(0x0c, 1); motor_i2cWrite(0x0d, 1); motor_i2cWrite(0x0e, 1); };
+                    break;
             }
         }
         if (place == 0) {
@@ -92,6 +97,8 @@ namespace Motor {
                 case 6: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x0b, 0); };
                     break;
                 case 7: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x0b, 1); };
+                    break;
+                case 8: { motor_i2cWrite(0x09, 1); motor_i2cWrite(0x0a, 1); motor_i2cWrite(0x0b, 1); };
                     break;
             }
         }
