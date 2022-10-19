@@ -33,9 +33,9 @@ enum LED_color {
     oxbloodred = 5,
     //% block="white"
     white = 6,
-    //% block="Turn off LED"
+    //% block="yellow"
     yellow = 7,
-    //% block=""
+    //% block="Turn off LED"
     black = 8,
     
 }
