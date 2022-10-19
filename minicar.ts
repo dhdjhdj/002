@@ -91,7 +91,7 @@ namespace Motor {
                     break;
                 case 6: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x0b, 0); };
                     break;
-                case 7: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0d, 0); motor_i2cWrite(0x0e, 1); };
+                case 7: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x0b, 1); };
                     break;
             }
         }
