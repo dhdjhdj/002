@@ -168,6 +168,13 @@ namespace MiniCar {
         let val = pins.digitalReadPin(DigitalPin.P12) << 0 | pins.digitalReadPin(DigitalPin.P13) << 1;
         return val;
     }
+
+    //% block="set servo to angle %angle"
+    //% group="Servo" weight=69
+    //% angle.min=0 angle.max.max=180
+    export function setServo(angle: number): void {
+        pins.servoWritePin(AnalogPin.P2, angle)
+    }
 }
 
 function motor_i2cWrite(reg: number, value: number) {
