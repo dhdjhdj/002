@@ -40,6 +40,23 @@ enum LED_color {
     black = 8,
 
 }
+enum pwm_led_r {
+    //% black="red"
+    pwm_red_r = 0x08,
+    //% black="green"
+    pwm_green_r = 0x07,
+    //% black="blue"
+    pwm_blue_r = 0x06,
+}
+
+enum pwm_led_l {
+    //% black="red"
+    pem_red_l = 0x05,
+    //% black="green"
+    pwm_green_l = 0x0a,
+    //% black="blue"
+    pwm_blue_l = 0x09,
+}
 
 //% color="#AA278D"
 namespace MiniCar {
@@ -61,47 +78,108 @@ namespace MiniCar {
         }
     }
 
+    //% block="LED Show"
+    //% group="RGB LED" weight=64
+    export function led_show() {
+        let a,s,d;
+
+        motor_i2cWrite(0x07, 255); motor_i2cWrite(0x06, 255);
+        motor_i2cWrite(0x0a, 255); motor_i2cWrite(0x05, 255);
+        //红色逐渐点亮
+        for(a = 255;a > 1;a--)
+        {
+            motor_i2cWrite(0x08, a); 
+            motor_i2cWrite(0x09, a); 
+            basic.pause(5);
+        }
+        //绿色逐渐点亮
+        for (s = 255; s > 1; s--) {
+            motor_i2cWrite(0x07, s);
+            motor_i2cWrite(0x0a, s);
+            basic.pause(5);
+        }
+        //红色逐渐熄灭
+        for (a = 0; a < 255; a++) {
+            motor_i2cWrite(0x08, a);
+            motor_i2cWrite(0x09, a);
+            basic.pause(5);
+        }
+        //blue
+        for (d = 255; d > 1; d--) {
+            motor_i2cWrite(0x06, d);
+            motor_i2cWrite(0x05, d);
+            basic.pause(5);
+        }
+        //green
+        for (s = 0; s < 255; s++) {
+            motor_i2cWrite(0x07, s);
+            motor_i2cWrite(0x0a, s);
+            basic.pause(5);
+        }
+        //rad
+        for (a = 255; a> 1; a--) {
+            motor_i2cWrite(0x08, a);
+            motor_i2cWrite(0x09, a);
+            basic.pause(5);
+        }
+        for (d = 0; d < 255; d++) {
+            motor_i2cWrite(0x06, d);
+            motor_i2cWrite(0x05, d);
+            basic.pause(5);
+        }
+        for (a = 0; a < 255; a++) {
+            motor_i2cWrite(0x08, a);
+            motor_i2cWrite(0x09, a);  
+            basic.pause(5);
+        }
+
+
+    }
+
+
+
+
     //% block="RGB = |%place color = |$color"
     //% direction.shadow=timePicker
     //% group="RGB LED" weight=64
     export function led_rgb(place: LED_rgb_L_R, color: LED_color) {
         if (place == 1) {
             switch (color) {
-                case 1: { motor_i2cWrite(0x0c, 0); motor_i2cWrite(0x0d, 1); motor_i2cWrite(0x0e, 1); };
+                case 1: { motor_i2cWrite(0x08, 0); motor_i2cWrite(0x07, 255); motor_i2cWrite(0x06, 255); };
                     break;
-                case 2: { motor_i2cWrite(0x0c, 1); motor_i2cWrite(0x0d, 0); motor_i2cWrite(0x0e, 1); };
+                case 2: { motor_i2cWrite(0x08, 255); motor_i2cWrite(0x07, 0); motor_i2cWrite(0x06, 255); };
                     break;
-                case 3: { motor_i2cWrite(0x0c, 1); motor_i2cWrite(0x0d, 1); motor_i2cWrite(0x0e, 0); };
+                case 3: { motor_i2cWrite(0x08, 255); motor_i2cWrite(0x07, 255); motor_i2cWrite(0x06, 0); };
                     break;
-                case 4: { motor_i2cWrite(0x0c, 1); motor_i2cWrite(0x0d, 0); motor_i2cWrite(0x0e, 0); };
+                case 4: { motor_i2cWrite(0x08, 255); motor_i2cWrite(0x07, 0); motor_i2cWrite(0x06, 0); };
                     break;
-                case 5: { motor_i2cWrite(0x0c, 0); motor_i2cWrite(0x0d, 1); motor_i2cWrite(0x0e, 0); };
+                case 5: { motor_i2cWrite(0x08, 0); motor_i2cWrite(0x07, 255); motor_i2cWrite(0x06, 0); };
                     break;
-                case 6: { motor_i2cWrite(0x0c, 0); motor_i2cWrite(0x0d, 0); motor_i2cWrite(0x0e, 0); };
+                case 6: { motor_i2cWrite(0x08, 0); motor_i2cWrite(0x07, 0); motor_i2cWrite(0x06, 0); };
                     break;
-                case 7: { motor_i2cWrite(0x0c, 0); motor_i2cWrite(0x0d, 0); motor_i2cWrite(0x0e, 1); };
+                case 7: { motor_i2cWrite(0x08, 0); motor_i2cWrite(0x07, 0); motor_i2cWrite(0x06, 255); };
                     break;
-                case 8: { motor_i2cWrite(0x0c, 1); motor_i2cWrite(0x0d, 1); motor_i2cWrite(0x0e, 1); };
+                case 8: { motor_i2cWrite(0x08, 255); motor_i2cWrite(0x07, 255); motor_i2cWrite(0x06, 255); };
                     break;
             }
         }
         if (place == 0) {
             switch (color) {
-                case 1: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 1); motor_i2cWrite(0x0b, 1); };
+                case 1: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 255); motor_i2cWrite(0x05, 255); };
                     break;
-                case 2: { motor_i2cWrite(0x09, 1); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x0b, 1); };
+                case 2: { motor_i2cWrite(0x09, 255); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x05, 255); };
                     break;
-                case 3: { motor_i2cWrite(0x09, 1); motor_i2cWrite(0x0a, 1); motor_i2cWrite(0x0b, 0); };
+                case 3: { motor_i2cWrite(0x09, 255); motor_i2cWrite(0x0a, 255); motor_i2cWrite(0x05, 0); };
                     break;
-                case 4: { motor_i2cWrite(0x09, 1); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x0b, 0); };
+                case 4: { motor_i2cWrite(0x09, 255); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x05, 0); };
                     break;
-                case 5: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 1); motor_i2cWrite(0x0b, 0); };
+                case 5: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 255); motor_i2cWrite(0x05, 0); };
                     break;
-                case 6: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x0b, 0); };
+                case 6: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x05, 0); };
                     break;
-                case 7: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x0b, 1); };
+                case 7: { motor_i2cWrite(0x09, 0); motor_i2cWrite(0x0a, 0); motor_i2cWrite(0x05, 255); };
                     break;
-                case 8: { motor_i2cWrite(0x09, 1); motor_i2cWrite(0x0a, 1); motor_i2cWrite(0x0b, 1); };
+                case 8: { motor_i2cWrite(0x09, 255); motor_i2cWrite(0x0a, 255); motor_i2cWrite(0x05, 255); };
                     break;
             }
         }
@@ -146,8 +224,8 @@ namespace MiniCar {
     //% block="LDR_L "
     //% group="Photoresistance Sensor" weight=66
     export function PH1(): number {
-            return pins.analogReadPin(AnalogPin.P1);
-        }
+        return pins.analogReadPin(AnalogPin.P1);
+    }
 
     //% block="LDR_R "
     //% group="Photoresistance Sensor" weight=66
